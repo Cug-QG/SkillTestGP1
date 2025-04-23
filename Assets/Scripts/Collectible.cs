@@ -14,7 +14,9 @@ public class Collectible : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) { return; }
+        GameManager.Instance.AddFruit();
         CollectItem.Invoke(collision.GetComponent<Player>());
+        Destroy(gameObject);
     }
 
     private void Heal(Player player)

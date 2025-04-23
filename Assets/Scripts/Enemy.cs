@@ -2,20 +2,23 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    protected override void PerformAction()
+    protected override void Die()
     {
-        throw new System.NotImplementedException();
+        Destroy(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void PerformAction(Transform target)
     {
-        
+        target.GetComponent<Player>().ChangeHealth(-data.Dmg);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (!collision.transform.CompareTag("Player")) { return; }
+
+        ContactPoint2D contact = collision.contacts[0];
+        Vector2 normal = contact.normal;
+
+        if (normal.y > -0.5f) { PerformAction(collision.transform); }
     }
 }

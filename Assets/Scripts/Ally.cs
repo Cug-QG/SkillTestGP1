@@ -2,20 +2,13 @@ using UnityEngine;
 
 public class Ally : Character
 {
-    protected override void PerformAction()
+    protected override void Die()
     {
         throw new System.NotImplementedException();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void PerformAction(Transform target)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }
