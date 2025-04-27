@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfdbc70a879e6b94c8da1f932569f6df, type: 3}
-  m_Name: ItemData
+  m_Name: ShieldFruit
   m_EditorClassIdentifier: 
   itemName: 
   points: 0
-  itemType: 0
+  itemType: 1

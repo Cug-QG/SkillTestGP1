@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : Character
@@ -7,6 +8,7 @@ public class Player : Character
     [SerializeField] private float groundRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
+    private bool shielded;
     private AnimationState state;
 
     void Update()
@@ -99,7 +101,7 @@ public class Player : Character
 
     protected override void PerformAction(Transform target)
     {
-        target.GetComponent<Enemy>().ChangeHealth(-data.Dmg);
+        target.GetComponent<Enemy>().ChangeHealth(-damage);
         Jump();
     }
 
@@ -119,12 +121,44 @@ public class Player : Character
     }
 
     public bool GetFlipStatus() { return spriteRenderer.flipX; }
-}
 
-public enum AnimationState
-{
-    Idle,
-    Run,
-    Jump,
-    Fall
+    public override void ChangeHealth(float input)
+    {
+        if (shielded && input<=0) { return; }
+        base.ChangeHealth(input);
+        UIManager.Instance.SetHP(health.currentHealth);
+    }
+
+    public void Kill()
+    {
+        base.ChangeHealth(-health.maxHealth);
+    }
+
+    private Coroutine currentShieldRoutine;
+    public void SetShield(float time)
+    {
+        if (currentShieldRoutine != null) { StopCoroutine(currentShieldRoutine); }
+        currentShieldRoutine = StartCoroutine(SetShieldRoutine(time));
+    }
+
+    IEnumerator SetShieldRoutine(float time)
+    {
+        shielded = true;
+        yield return new WaitForSeconds(time);
+        shielded = false;
+    }
+
+    private Coroutine currentDMGBoostRoutine;
+    public void SetDMGBoost(float time)
+    {
+        if (currentDMGBoostRoutine != null) { StopCoroutine(currentDMGBoostRoutine); }
+        currentShieldRoutine = StartCoroutine(SetDMGBoostRoutine(time));
+    }
+
+    IEnumerator SetDMGBoostRoutine(float time)
+    {
+        damage = data.Dmg * 2;
+        yield return new WaitForSeconds(time);
+        damage = data.Dmg;
+    }
 }

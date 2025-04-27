@@ -1,7 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Character
 {
+    
+    Vector3 dir = Vector3.right;
+    private void Update()
+    {
+        Move(dir);
+    }
+    private void Awake()
+    {
+        StartCoroutine(ChangeDir(Random.Range(0,10)));
+    }
+    IEnumerator ChangeDir(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dir *= -1;
+        spriteRenderer.flipX = !spriteRenderer.flipX;
+        StartCoroutine(ChangeDir(Random.Range(0, 10)));
+    }
+
     protected override void Die()
     {
         Destroy(gameObject);

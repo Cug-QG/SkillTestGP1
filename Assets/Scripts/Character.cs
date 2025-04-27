@@ -8,6 +8,7 @@ public abstract class Character : MonoBehaviour
     protected float speed;
 
     [SerializeField] protected CharacterData data;
+    protected float damage;
 
     protected struct Health
     {
@@ -31,9 +32,10 @@ public abstract class Character : MonoBehaviour
 
         speed = data.Speed;
         health = new Health(data.MaxHP);
+        damage = data.Dmg;
     }
 
-    public void ChangeHealth(float input)
+    public virtual void ChangeHealth(float input)
     {
         if (input < 0f && health.invulnerable) { return; }
         health.currentHealth += input;

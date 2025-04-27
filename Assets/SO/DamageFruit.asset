@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229c8fe81a48f334c87a510cd1125a54, type: 3}
-  m_Name: CharacterData
+  m_Script: {fileID: 11500000, guid: cfdbc70a879e6b94c8da1f932569f6df, type: 3}
+  m_Name: DamageFruit
   m_EditorClassIdentifier: 
-  maxHP: 10
-  speed: 5
-  dmg: 1
+  itemName: 
+  points: 0
+  itemType: 2

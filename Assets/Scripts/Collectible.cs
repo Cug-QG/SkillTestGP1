@@ -8,7 +8,20 @@ public class Collectible : MonoBehaviour
 
     private void Start()
     {
-        CollectItem = Heal;
+        switch (data.ItemType)
+        {
+            case ItemType.Heal:
+                CollectItem = Heal;
+                break;
+            case ItemType.Shield:
+                CollectItem = Shield;
+                break;
+            case ItemType.DamageBoost:
+                CollectItem = BoostDamage;
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -21,6 +34,16 @@ public class Collectible : MonoBehaviour
 
     private void Heal(Player player)
     {
-        player.ChangeHealth(5);
+        player.ChangeHealth(1);
+    }
+
+    private void Shield(Player player) 
+    {
+        player.SetShield(5);
+    }
+
+    private void BoostDamage(Player player)
+    {
+        player.SetDMGBoost(20);
     }
 }
